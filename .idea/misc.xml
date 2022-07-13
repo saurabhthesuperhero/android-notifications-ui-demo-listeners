@@ -4,9 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Saurabh/SelfProjects/A4RoomsNotificationsDemo/app/src/main/res/drawable/circular_dots_view.xml" value="0.1" />
-        <entry key="..\:/Saurabh/SelfProjects/A4RoomsNotificationsDemo/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Saurabh/SelfProjects/A4RoomsNotificationsDemo/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Saurabh/SelfProjects/A4RoomsNotificationsDemo/app/src/main/res/layout/circular_dot.xml" value="0.1921875" />
-        <entry key="..\:/Saurabh/SelfProjects/A4RoomsNotificationsDemo/app/src/main/res/layout/notification_item.xml" value="0.5" />
+        <entry key="..\:/Saurabh/SelfProjects/A4RoomsNotificationsDemo/app/src/main/res/layout/notification_item.xml" value="0.25" />
       </map>
     </option>
   </component>

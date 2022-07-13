@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getAllNotifications().observe(this, new Observer<List<Notification>>() {
             @Override
             public void onChanged(List<Notification> notifications) {
-                adapter.setNotifications(notifications);
+                adapter.submitList(notifications);
                 if (notificationsGlob!=null){
                 notificationsGlob.clear();}
                 notificationsGlob.addAll(notifications);
@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(notification -> {
             notification.setIs_read(true);
             viewModel.update(notification);
+            adapter.notifyDataSetChanged();
+
         });
         tv_mark_all_as_read.setOnClickListener(view -> {
 
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                  notificationsGlob) {
                 e.setIs_read(true);
                 viewModel.update(e);
+                adapter.notifyDataSetChanged();
             }
 
         });

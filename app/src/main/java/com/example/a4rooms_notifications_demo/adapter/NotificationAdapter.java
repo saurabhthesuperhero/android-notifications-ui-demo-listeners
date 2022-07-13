@@ -8,6 +8,8 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -19,13 +21,29 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NoteHolder> {
-    private List<Notification> notifications = new ArrayList<>();
+public class NotificationAdapter extends ListAdapter<Notification,NotificationAdapter.NoteHolder> {
+//    private List<Notification> notifications = new ArrayList<>();
     private Context context;
     private OnItemClickListener listener;
+
+    public NotificationAdapter() {
+        super(DIFF_CALLBACK);
+    }
+    private static final DiffUtil.ItemCallback<Notification> DIFF_CALLBACK= new DiffUtil.ItemCallback<Notification>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Notification oldItem, @NonNull Notification newItem) {
+            return oldItem.getId()== newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Notification oldItem, @NonNull Notification newItem) {
+            return oldItem.getNotification_title().equals(newItem.getNotification_title()) && oldItem.getNotification_datetime().equals(newItem.getNotification_datetime()) && oldItem.getNotification_description().equals(newItem.getNotification_description());
+        }
+    };
 
     @NonNull
     @Override
@@ -38,7 +56,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
-        Notification current = notifications.get(position);
+        Notification current = getItem(position);
         holder.textViewTitle.setText(current.getNotification_title());
         holder.textViewDescription.setText(current.getNotification_description());
         Glide.with(context).load(current.getIcon_url()).into(holder.circleImageView);
@@ -56,18 +74,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     }
 
-    @Override
-    public int getItemCount() {
-        return notifications.size();
-    }
+//    @Override
+//    public int getItemCount() {
+//        return notifications.size();
+//    }
 
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
-        notifyDataSetChanged();
-    }
+//    public void setNotifications(List<Notification> notifications) {
+//        this.notifications = notifications;
+//        notifyDataSetChanged();
+//    }
 
     public Notification getNotyat(int position) {
-        return notifications.get(position);
+        return getItem(position);
     }
 
     class NoteHolder extends RecyclerView.ViewHolder {
@@ -89,7 +107,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(notifications.get(position));
+                        listener.onItemClick(getItem(position));
                     }
                 }
             });
